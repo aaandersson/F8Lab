@@ -41,6 +41,7 @@ classdef StepperMotor
                     if nargout, success = true; end
                     return
                 end
+                java.lang.Thread.sleep(100)
             end
             % 3.7.13 Reference Search STOP
             byteString = encodeCommand(1,13,1,obj.ax,int32(0));
@@ -60,6 +61,7 @@ classdef StepperMotor
             byteString = encodeCommand(1,4,0,obj.ax,int32(pos));
             obj.writeread(byteString);
             tic
+            java.lang.Thread.sleep(50)
             while toc<timeout
                 if obj.Get("RightLimitSwitchState") ...
                     || obj.Get("LeftLimitSwitchState")
@@ -74,6 +76,7 @@ classdef StepperMotor
                     if nargout, success = true; end
                     return
                 end
+                java.lang.Thread.sleep(5)
             end
             if nargout, success = false; 
             else, warning("Time limit exceeded."), end
