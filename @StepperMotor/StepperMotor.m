@@ -21,6 +21,10 @@ classdef StepperMotor
             if nargin<2, pos = 0; end
             obj.Set("ActualPosition",int32(pos));
         end
+        function success = ModPosition(obj,pos)
+            oldpos = obj.GetPosition();
+            success = obj.SetPosition(oldpos+pos);
+        end
         function success = SeekLeftSwitch(obj,timeout)
             if nargin<3, timeout = 100; end
             obj.Set("ReferenceSearchMode",int32(1))
@@ -101,13 +105,3 @@ classdef StepperMotor
 end
 % byteString = encodeCommand(module,command,type,motor,value)
 % [replier,module,status,command,value] = decodeReply(byteString)
-
-% INTERRUPT
-% enable(25)
-% disable 26
-% set (37)
-% return 38
-
-% INT. TYPES
-% left limit 27+2*ax
-% right limit 28+2*ax
