@@ -63,15 +63,15 @@ classdef StepperMotor
             tic
             java.lang.Thread.sleep(50)
             while toc<timeout
-                if obj.Get("RightLimitSwitchState") ...
-                    || obj.Get("LeftLimitSwitchState")
-                    % 3.7.3 Motor Stop
-                    byteString = encodeCommand(1,3,0,obj.ax,int32(0));
-                    obj.writeread(byteString);
-                    if nargout, success = false; 
-                    else, warning("Limit switch reached."), end
-                    return
-                end
+%                 if obj.Get("RightLimitSwitchState") ...
+%                     || obj.Get("LeftLimitSwitchState")
+%                     % 3.7.3 Motor Stop
+%                     byteString = encodeCommand(1,3,0,obj.ax,int32(0));
+%                     obj.writeread(byteString);
+%                     if nargout, success = false; 
+%                     else, warning("Limit switch reached."), end
+%                     return
+%                 end
                 if obj.Get("PostionReachedFlag")
                     if nargout, success = true; end
                     return
