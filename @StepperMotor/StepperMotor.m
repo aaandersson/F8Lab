@@ -1,6 +1,6 @@
 classdef StepperMotor
     properties (SetAccess = private)
-        port string
+        port char
         axis uint8
     end
     methods
@@ -9,10 +9,14 @@ classdef StepperMotor
             assert(isscalar(port) && isstring(port))
             assert(isscalar(axis) && any(1:6 == axis))
 
-            global StepperMotorPortMap %#ok<GVMIS> 
+            global StepperMotorPortMap %#ok<GVMIS>
+            if isempty( StepperMotorPortMap )
+                StepperMotorPortMap = containers.Map();
+            end
             if not( StepperMotorPortMap.isKey(port) ) 
                 StepperMotorPortMap(port) = serialport(port,9600,"Timeout",1);
             end
+            obj.port = port;
             obj.axis = axis;
 
             % 3.7.37 Request Target Position reached Event

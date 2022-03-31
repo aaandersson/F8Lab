@@ -11,6 +11,7 @@ port = "COM5";
 axis = 2;
 
 % Create StepperMotor object
+addpath F8Lab
 sm = StepperMotor(port,axis);
 
 %% Calibrate position to left switch
@@ -24,14 +25,17 @@ sm.DefPosition(0)
 
 %% Set and get position
 
+sm.Set("TargetPosition",10000)
+pause(1)
+
 disp 'Moving...'
-sm.SetPosition(112000)
+sm.SetPosition(111400)
 
 disp 'Arrived at:'
 disp(sm.GetPosition())
 
 disp 'Moving...'
-sm.ModPosition(100)
+sm.ModPosition(000)
 
 disp 'Arrived at:'
 disp(sm.GetPosition())
